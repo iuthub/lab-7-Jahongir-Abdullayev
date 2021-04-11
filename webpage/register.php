@@ -1,6 +1,26 @@
 <?php  
 
 include('connection.php');
+$db = new PDO('mysql:host=localhost;dbname=imdb','jeckstar','Zeh4eE53F9roX0p');
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$add_user_stmt= $db->prepare('INSERT INTO users(username, email, password, fullname, dob) VALUES(?,?,?,?,?)');
+
+
+$username="";
+$email="";
+$password="";
+$fullName="";
+$dob="";
+
+if($_SERVER['REQUEST_METHOD']=='POST'){
+    $username=$_REQUEST['username'];
+    $email=$_REQUEST['email'];
+    $password=$_REQUEST['pwd'];
+    $fullName=$_REQUEST['fullName'];
+    $dob=date("Y-m-d");
+    $add_user_stmt->execute(array($username, $email, $password, $fullName,""));
+}
 
 ?>
 

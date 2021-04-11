@@ -1,5 +1,19 @@
 <?php
 include('connection.php');
+session_start();
+$db = new PDO('mysql:host=localhost;dbname=imdb','jeckstar','Zeh4eE53F9roX0p');
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$logged=0;
+
+$check_user_stmt= $db->prepare('SELECT * FROM users WHERE username=? AND password=? ');
+$add_post_stmt=$db->prepare('INSERT INTO posts(title,body,publishDate,userId) VALUES(?,?,?,?)');
+$get_posts_stmt=$db->prepare('SELECT * FROM posts');
+
+
+$username="";
+$password="";
+
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
